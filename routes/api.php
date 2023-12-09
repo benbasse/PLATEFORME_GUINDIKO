@@ -58,8 +58,6 @@ Route::put('articles/archives/{article}', [ArticleController::class, 'archive'])
 Route::get('articles/articlesArchives', [ArticleController::class, 'articlesArchives']);
 Route::get('articles/articlesNonArchives', [ArticleController::class, 'articlesNonArchives']);
 
-
-
 // Pour les mentors (CRUD ET ARCHIVE)
 Route::get('mentor', [MentorController::class, 'index']);
 Route::get('mentor/nonArchive', [MentorController::class, 'non_archive']);
@@ -70,9 +68,9 @@ Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
 
 //Pour les mentorats (CRUD)
-Route::post('mentorat/create', [MentoratController::class, 'store']);
 Route::get('mentorat/show', [MentoratController::class, 'show']);
 Route::get('mentorat/index', [MentoratController::class, 'index']);
+Route::post('mentorat/create', [MentoratController::class, 'store']);
 
 //Route d'inscription et de connexion pour les users
 Route::post('register', [UserController::class, 'register']);
@@ -83,18 +81,17 @@ Route::post('login', [MentorController::class, 'login']);
 Route::post('registerMentor', [MentorController::class, 'registerMentor']);
 
 
-
+/*routes d'acces pour mentors*/
 Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
-    /*routes d'acces pour mentors*/
 Route::post('logout', [MentorController::class, 'logout']);
 });
 
+/*routes d'acces pour mentorés*/
 Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {
-    /*routes d'acces pour mentorés*/
     Route::post('logoutUser', [UserController::class, 'logoutUser']);
 });
 
+/*routes d'acces pour admin*/
 Route::middleware(['auth:sanctum', 'acces:admin'])->group(function () {
-    /*routes d'acces pour admin*/
 });
 

@@ -14,11 +14,11 @@ class EvenementController extends Controller
     public function index(Evenement $evenement)
     {
         try {
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voici la liste des evenements non archivés',
-                    'evenement' => Evenement::all(),
-                ]);
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste des evenements non archivés',
+                'evenement' => Evenement::all(),
+            ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -61,9 +61,9 @@ class EvenementController extends Controller
     {
         try {
             return response()->json([
-                "statu_code"=> 200,
-                "status_message"=>"Voici l'événement spécifique",
-                "evenementid"=> Evenement::find($evenement),
+                "statu_code" => 200,
+                "status_message" => "Voici l'événement spécifique",
+                "evenementid" => Evenement::find($evenement),
             ]);
         } catch (Exception $e) {
             return response()->json($e);

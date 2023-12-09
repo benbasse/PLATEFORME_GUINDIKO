@@ -97,13 +97,9 @@ class SessionController extends Controller
         }
     }
 
-
-
     public function store(CreateSessionRequest $request, Session $session)
     {
-        dd($request);
         try {
-            // dd(Auth::user());
             $session->libelle = $request->libelle;
             $session->en_ligne= $request->en_ligne;
             $session->theme = $request->theme;

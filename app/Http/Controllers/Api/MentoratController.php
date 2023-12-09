@@ -15,8 +15,8 @@ class MentoratController extends Controller
             $mentorat->mentors_id = Auth()->guard('mentor')->user();
             $mentorat->users_id = $request->users_id;
             return response()->json([
-                "status_code"=> 200,
-                "status_message"=>"Vous avez enregistrer un nouveau mentorat",
+                "status_code" => 200,
+                "status_message" => "Vous avez enregistrer un nouveau mentorat",
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -27,9 +27,9 @@ class MentoratController extends Controller
     {
         try {
             return response()->json([
-                "status_code"=> 200,
-                "status_message"=>"Voici la liste de tous les mentorats",
-                "mentorat_liste"=> Mentorat::all(),
+                "status_code" => 200,
+                "status_message" => "Voici la liste de tous les mentorats",
+                "mentorat_liste" => Mentorat::all(),
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -40,9 +40,9 @@ class MentoratController extends Controller
     {
         try {
             return response()->json([
-                "status_code"=> 200,
-                "status_message"=>"Voici le mentorat spécifique vous voulez récupérer",
-                "mentorat_id"=>Mentorat::find($mentorat),
+                "status_code" => 200,
+                "status_message" => "Voici le mentorat spécifique vous voulez récupérer",
+                "mentorat_id" => Mentorat::find($mentorat),
             ]);
         } catch (Exception $e) {
             return response()->json($e);
