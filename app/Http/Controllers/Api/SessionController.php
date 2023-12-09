@@ -62,8 +62,8 @@ class SessionController extends Controller
         dd($request);
         try {
             // dd(Auth::user());
-            $session->users_id = $request->users_id;
-            $session->mentors_id = Auth::guard('mentor')->user();
+            $session->libelle = $request->libelle;
+            $session->en_ligne= $request->en_ligne;
             $session->theme = $request->theme;
             $session->save();
             return response()->json([
@@ -79,9 +79,9 @@ class SessionController extends Controller
     public function update(EditSessionRequest $request, Session $session)
     {
         try {
-            $session->date_evenement = $request->date_evenement;
-            $session->lieu = $request->lieu;
-            $session->theme_evenement = $request->theme_evenement;
+            $session->libelle = $request->libelle;
+            $session->en_ligne= $request->en_ligne;
+            $session->theme = $request->theme;
             $session->save();
             return response()->json([
                 'status_code' => 200,
