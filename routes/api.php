@@ -26,7 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Pour les événements
 Route::put('evenement/archive/{evenement}', [EvenementController::class, 'archive']);
 Route::get('evenement/EvenementArchive', [EvenementController::class, 'EvenementArchive']);
+Route::get('evenement/EvenementNonArchive', [EvenementController::class, 'EvenemenNontArchive']);
 Route::get('evenement', [EvenementController::class, 'index']);
+Route::get('evenement/show', [EvenementController::class, 'show']);
 Route::post('evenement/create', [EvenementController::class, 'store']);
 Route::put('evenement/edit/{evenement}', [EvenementController::class, 'update']);
 Route::delete('evenement/{evenement}', [EvenementController::class, 'destroy']);

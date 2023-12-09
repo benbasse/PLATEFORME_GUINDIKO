@@ -14,13 +14,11 @@ class EvenementController extends Controller
     public function index(Evenement $evenement)
     {
         try {
-            if ($evenement->est_archive == 0) {
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Voici la liste des evenements non archivés',
-                    'evenement' => Evenement::where('est_archive', 0)->get(),
+                    'evenement' => Evenement::all(),
                 ]);
-            }
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -41,6 +39,38 @@ class EvenementController extends Controller
             return response()->json($e);
         }
     }
+
+    //Liste des evenement non archives
+    public function EvenemenNontArchive(Evenement $evenement)
+    {
+        try {
+            if ($evenement->est_archive == 0) {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des evenements non archivés',
+                    'evenement' => Evenement::where('est_archive', 0)->get(),
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    //Cette methode permet de récuperer un événement spécifique
+    public function show(Evenement $evenement)
+    {
+        try {
+            return response()->json([
+                "statu_code"=> 200,
+                "status_message"=>"Voici l'événement spécifique",
+                "evenementid"=> Evenement::find($evenement),
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+
 
     public function EvenementArchive(Evenement $evenement)
     {
