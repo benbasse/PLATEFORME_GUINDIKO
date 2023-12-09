@@ -5162,6 +5162,7 @@ Did you mean one of these?
 #8 /home/ben/Bureau/MyOwnApi/MyOwnApi/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #9 {main}
 "} 
+<<<<<<< HEAD
 [2023-12-09 12:13:33] local.ERROR: Route [login] not defined. {"exception":"[object] (Symfony\\Component\\Routing\\Exception\\RouteNotFoundException(code: 0): Route [login] not defined. at /home/ben/Bureau/MyOwnApi/MyOwnApi/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:479)
 [stacktrace]
 #0 /home/ben/Bureau/MyOwnApi/MyOwnApi/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(811): Illuminate\\Routing\\UrlGenerator->route()
@@ -6152,6 +6153,8 @@ Did you mean one of these?
 #8 /home/ben/Bureau/MyOwnApi/MyOwnApi/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #9 {main}
 "} 
+=======
+>>>>>>> ec6a7cc (Ajouter des nouvelle methodes pour lister tous les articles et lister un article spécifique)
 [2023-12-09 14:14:28] local.ERROR: Cannot use App\Http\Controllers\Api\EvenementController as EvenementController because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Controllers\\Api\\EvenementController as EvenementController because the name is already in use at /home/ben/Bureau/MyOwnApi/MyOwnApi/routes/api.php:11)
 [stacktrace]
 #0 {main}
