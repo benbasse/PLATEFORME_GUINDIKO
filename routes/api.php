@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\EvenementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,15 +38,17 @@ Route::put('evenement/archive/{evenement}', [EvenementController::class, 'archiv
 Route::get('evenement/EvenementArchive', [EvenementController::class, 'EvenementArchive']);
 Route::get('evenement/EvenementNonArchive', [EvenementController::class, 'EvenemenNontArchive']);
 Route::get('evenement', [EvenementController::class, 'index']);
-Route::get('evenement/show', [EvenementController::class, 'show']);
 Route::post('evenement/create', [EvenementController::class, 'store']);
+Route::get('evenement/show/{evenement}', [EvenementController::class, 'show']);
 Route::put('evenement/edit/{evenement}', [EvenementController::class, 'update']);
 Route::delete('evenement/{evenement}', [EvenementController::class, 'destroy']);
 
 //Pour les articles(ARCHIVER ET CRUD)
 Route::put('articles/archives/{article}', [ArticleController::class, 'archive']);
-Route::get('articlesArchives', [ArticleController::class, 'articlesArchives']);
+Route::get('articles/articlesArchives', [ArticleController::class, 'articlesArchives']);
+Route::get('articles/articlesNonArchives', [ArticleController::class, 'articlesNonArchives']);
 Route::get('articles', [ArticleController::class, 'index']);
+Route::get('articles/show/{article}', [ArticleController::class, 'show']);
 Route::post('articles/create', [ArticleController::class, 'store']);
 Route::put('articles/edit/{article}', [ArticleController::class, 'update']);
 Route::delete('articles/{article}', [ArticleController::class, 'destroy']);

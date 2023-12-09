@@ -5162,3 +5162,15 @@ Did you mean one of these?
 #8 /home/ben/Bureau/MyOwnApi/MyOwnApi/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #9 {main}
 "} 
+[2023-12-09 14:14:28] local.ERROR: Cannot use App\Http\Controllers\Api\EvenementController as EvenementController because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Controllers\\Api\\EvenementController as EvenementController because the name is already in use at /home/ben/Bureau/MyOwnApi/MyOwnApi/routes/api.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-09 14:14:28] local.ERROR: Cannot use App\Http\Controllers\Api\EvenementController as EvenementController because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Controllers\\Api\\EvenementController as EvenementController because the name is already in use at /home/ben/Bureau/MyOwnApi/MyOwnApi/routes/api.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2023-12-09 14:14:28] local.ERROR: Cannot use App\Http\Controllers\Api\EvenementController as EvenementController because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Controllers\\Api\\EvenementController as EvenementController because the name is already in use at /home/ben/Bureau/MyOwnApi/MyOwnApi/routes/api.php:11)
+[stacktrace]
+#0 {main}
+"} 
