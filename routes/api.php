@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\EvenementController;
+use App\Http\Controllers\Api\MentoratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,11 @@ Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
+
+//Pour les mentorats (CRUD)
+Route::post('mentorat/create', [MentoratController::class, 'store']);
+Route::get('mentorat/show', [MentoratController::class, 'show']);
+Route::get('mentorat/index', [MentoratController::class, 'index']);
 
 //Route d'inscription et de connexion pour les users
 Route::post('register', [UserController::class, 'register']);
