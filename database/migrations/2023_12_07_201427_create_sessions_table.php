@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('mentorats_id');
             $table->string('en_ligne');
             $table->string('theme');
             $table->boolean('est_archive')->default(false);
