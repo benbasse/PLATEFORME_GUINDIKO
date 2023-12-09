@@ -25,6 +25,7 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             'nom'=>'required',
+            'parcours'=>'required',
             'email'=>'required|unique:users,email|email',
             'password'=>'required|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/',
             'telephone' =>'required|regex:/^7[0-9]{8}$/|unique:users,telephone',
@@ -45,6 +46,7 @@ class RegisterUserRequest extends FormRequest
     public function messages(){
         return [
             'nom.required'=>'le nom est requis',
+            'parcours.required'=>'le parcours est requis',
             'email.required'=>'l\'email est requis',
             'email.unique'=>'l\'email existe déja',
             'email.email'=>"format email incorrect",

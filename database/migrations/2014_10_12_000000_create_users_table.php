@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('telephone');
+            $table->longText('parcours');
             $table->enum('statut', ['eleve', 'etudiant', 'professionnel', 'jeune_diplome']);
             $table->string('role')->default('user');
             $table->boolean('est_archive')->default(false);

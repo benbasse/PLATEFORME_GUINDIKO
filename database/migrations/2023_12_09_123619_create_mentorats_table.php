@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('mentorats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('mentorats_id');
-            $table->string('en_ligne');
-            $table->string('theme');
-            $table->boolean('est_archive')->default(false);
-            $table->string('libelle');
+            $table->unsignedBigInteger('mentors_id');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('mentorats');
     }
 };

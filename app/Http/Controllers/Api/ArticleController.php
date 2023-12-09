@@ -14,13 +14,11 @@ class ArticleController extends Controller
     public function index(Article $article)
     {
         try {
-            if ($article->est_archive == 0) {
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voici la liste des articles non archivés',
-                    'article' => Article::where('est_archive', 0)->get(),
-                ]);
-            }
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste de tous les articles ',
+                'article' => Article::all(),
+            ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -30,8 +28,8 @@ class ArticleController extends Controller
     {
         try {
             $article->update([
-                    "est_archive" => 1,
-                ]);
+                "est_archive" => 1,
+            ]);
             $article->save();
             return response()->json([
                 'status_code' => 200,
@@ -54,6 +52,49 @@ class ArticleController extends Controller
             }
         } catch (Exception $e) {
             return response()->json($e);
+        }
+    }
+
+    public function articlesNonArchives(Article $article)
+    {
+        try {
+            if ($article->est_archive == 0) {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des articles non archivés',
+                    'article' => Article::where('est_archive', 0)->get(),
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    public function show(Article $article)
+    {
+        try {
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => "l'article spécifique que vous voulez voir",
+                'article' => Article::find($article),
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    public function filtrerArticles(Request $request)
+    {
+        try {
+            $nameFilter = $request->input('search');
+            $article = Article::where('libelle', 'like', '%' . $nameFilter . '%')->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Article filtrés par libelle avec succès',
+                'article_filtre' => $article,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([$e]);
         }
     }
 

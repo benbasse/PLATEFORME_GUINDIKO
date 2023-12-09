@@ -9,19 +9,13 @@ class Session extends Model
 {
     use HasFactory;
 
-    public function Mentor()
+    public function Mentorat()
     {
-        return $this->belongsToMany(Mentor::class);
-    }
-
-    public function Users()
-    {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Mentor::class);
     }
 
     protected $fillabe=[
-        'mentors_id',
-        'users_id',
+        'mentorats_id',
         'lieu',
         'en_ligne',
         'theme',

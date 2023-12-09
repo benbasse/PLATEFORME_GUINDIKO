@@ -21,9 +21,9 @@ class UserController extends Controller
     {
         try{
             $user = new User(); 
-    
             $user->nom = $request->nom;
             $user->telephone = $request->telephone;
+            $user->parcours = $request->parcours;
             $user->statut = $request->statut;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -40,48 +40,6 @@ class UserController extends Controller
                 return response()->json([$e]);
             }
     
-        }
-
-        public function updateUser(UpdateUserRequest $request, User $user)
-        {
-            try {
-    
-                $user->nom = $request->nom ?? $user->nom;
-                if($user->telephone!==$user->telephone){
-                $user->telephone = $request->telephone ?? $user->telephone;}
-                $user->statut = $request->statut ?? $user->statut;
-
-                if ($request->has('new_password') && Hash::check($request->old_password, $user->password)) {
-                    // Le mot de passe fourni correspond à celui dans la base de données
-                    $user->password = Hash::make($request->new_password);
-                }
-    
-                $user->update();
-    
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Informations utilisateur mises à jour avec succès',
-                    'status_body' => $user
-                ]);
-    
-            } catch (Exception $e) {
-                return response()->json([$e]);
-            }
-        }
-    
-        public function showUser(User $user)
-        {
-            try {
-    
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Détails de l\'utilisateur récupérés avec succès',
-                    'status_body' => $user
-                ]);
-    
-            } catch (Exception $e) {
-                return response()->json([$e]);
-            }
         }
 
         public function logoutUser(){

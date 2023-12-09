@@ -13,7 +13,7 @@ class Mentor extends Authenticatable
 
     public function Session()
     {
-        return $this->hasMany(Session::class);
+        return $this->hasMany(Mentorat::class);
     }
 
     public function Article()
