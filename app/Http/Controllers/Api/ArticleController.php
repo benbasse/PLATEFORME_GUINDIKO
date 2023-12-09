@@ -83,6 +83,21 @@ class ArticleController extends Controller
         }
     }
 
+    public function filtrerArticles(Request $request)
+    {
+        try {
+            $nameFilter = $request->input('search');
+            $article = Article::where('libelle', 'like', '%' . $nameFilter . '%')->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Article filtrés par libelle avec succès',
+                'article_filtre' => $article,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([$e]);
+        }
+    }
+
     public function store(CreateArticleRequest $request)
     {
         try {
