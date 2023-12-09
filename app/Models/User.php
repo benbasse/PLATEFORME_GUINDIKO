@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     public function Session()
     {
-        return $this->hasMany(Session::class);
+        return $this->hasMany(Mentorat::class);
     }
 
     /**
