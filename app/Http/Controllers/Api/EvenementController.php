@@ -87,6 +87,21 @@ class EvenementController extends Controller
         }
     }
 
+    public function filtrerEvenements(Request $request)
+    {
+        try {
+            $nameFilter = $request->input('search');
+            $evenement = Evenement::where('libelle', 'like', '%' . $nameFilter . '%')->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Article filtrés par libelle avec succès',
+                'evenement_filtre' => $evenement,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([$e]);
+        }
+    }
+
     public function store(CreateEvenementRequest $request)
     {
         try {
