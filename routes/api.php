@@ -20,8 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Pour les sessions 
 Route::get('session', [SessionController::class, 'index']);
+Route::get('session/show', [SessionController::class, 'show']);
 Route::post('session/create', [SessionController::class, 'store']);
-Route::put('session/edit/{session}', [SessionController::class, 'update']);
 Route::delete('session/{session}', [SessionController::class, 'destroy']);
-Route::put('session/archive', [SessionController::class, 'archive']);
+Route::put('session/edit/{session}', [SessionController::class, 'update']);
+Route::get('session/filtrer', [SessionController::class, 'filtrerSession']);
+Route::put('session/archive/{session}', [SessionController::class, 'archive']);
 Route::get('session/sessionArchive', [SessionController::class, 'sessionArchive']);
+Route::get('session/sessionNonArchive', [SessionController::class, 'sessionNonArchive']);
