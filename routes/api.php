@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Pour les sessions (CRUD ET ARCHIVE)
 Route::get('session', [SessionController::class, 'index']);
+Route::get('session/show', [SessionController::class, 'show']);
 Route::post('session/create', [SessionController::class, 'store']);
 Route::delete('session/{session}', [SessionController::class, 'destroy']);
 Route::put('session/edit/{session}', [SessionController::class, 'update']);
