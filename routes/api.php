@@ -25,33 +25,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Pour les sessions (CRUD ET ARCHIVE)
+Route::get('session', [SessionController::class, 'index']);
+Route::post('session/create', [SessionController::class, 'store']);
+Route::delete('session/{session}', [SessionController::class, 'destroy']);
+Route::put('session/edit/{session}', [SessionController::class, 'update']);
 Route::put('session/archive/{session}', [SessionController::class, 'archive']);
 Route::get('session/sessionArchive', [SessionController::class, 'sessionArchive']);
-Route::post('session/create', [SessionController::class, 'store']);
-Route::get('session', [SessionController::class, 'index']);
-Route::put('session/edit/{session}', [SessionController::class, 'update']);
-Route::delete('session/{session}', [SessionController::class, 'destroy']);
 
 
 //Pour les événements (ARCHIVER ET CRUD)
-Route::put('evenement/archive/{evenement}', [EvenementController::class, 'archive']);
-Route::get('evenement/EvenementArchive', [EvenementController::class, 'EvenementArchive']);
-Route::get('evenement/EvenementNonArchive', [EvenementController::class, 'EvenemenNontArchive']);
 Route::get('evenement', [EvenementController::class, 'index']);
 Route::post('evenement/create', [EvenementController::class, 'store']);
 Route::get('evenement/show/{evenement}', [EvenementController::class, 'show']);
-Route::put('evenement/edit/{evenement}', [EvenementController::class, 'update']);
 Route::delete('evenement/{evenement}', [EvenementController::class, 'destroy']);
+Route::put('evenement/edit/{evenement}', [EvenementController::class, 'update']);
+Route::put('evenement/archive/{evenement}', [EvenementController::class, 'archive']);
+Route::get('evenement/EvenementArchive', [EvenementController::class, 'EvenementArchive']);
+Route::get('evenement/EvenementNonArchive', [EvenementController::class, 'EvenemenNontArchive']);
 
 //Pour les articles(ARCHIVER ET CRUD)
+Route::get('articles', [ArticleController::class, 'index']);
+Route::post('articles/create', [ArticleController::class, 'store']);
+Route::get('articles/show/{article}', [ArticleController::class, 'show']);
+Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
+Route::put('articles/edit/{article}', [ArticleController::class, 'update']);
 Route::put('articles/archives/{article}', [ArticleController::class, 'archive']);
 Route::get('articles/articlesArchives', [ArticleController::class, 'articlesArchives']);
 Route::get('articles/articlesNonArchives', [ArticleController::class, 'articlesNonArchives']);
-Route::get('articles', [ArticleController::class, 'index']);
-Route::get('articles/show/{article}', [ArticleController::class, 'show']);
-Route::post('articles/create', [ArticleController::class, 'store']);
-Route::put('articles/edit/{article}', [ArticleController::class, 'update']);
-Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
 
 
 
@@ -60,9 +60,9 @@ Route::get('mentor', [MentorController::class, 'index']);
 Route::get('mentor/nonArchive', [MentorController::class, 'non_archive']);
 Route::get('mentor/estArchive', [MentorController::class, 'est_archive']);
 Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
+Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
-Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 
 //Route d'inscription et de connexion pour les users
 Route::post('register', [UserController::class, 'register']);
