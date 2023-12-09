@@ -18,6 +18,10 @@ class Mentorat extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function Sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
 
     protected $fillabe=[
         "users_id",
