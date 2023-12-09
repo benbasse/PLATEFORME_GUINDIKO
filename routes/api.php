@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\EvenementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +55,7 @@ Route::delete('articles/{article}', [ArticleController::class, 'destroy']);
 Route::get('mentor', [MentorController::class, 'index']);
 Route::get('mentor/nonArchive', [MentorController::class, 'non_archive']);
 Route::get('mentor/estArchive', [MentorController::class, 'est_archive']);
+Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
 Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
