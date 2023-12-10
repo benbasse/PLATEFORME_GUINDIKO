@@ -14,7 +14,7 @@ class Session extends Model
         return $this->belongsTo(Mentor::class);
     }
 
-    protected $fillabe=[
+    protected $fillabe = [
         'mentorats_id',
         'lieu',
         'en_ligne',
