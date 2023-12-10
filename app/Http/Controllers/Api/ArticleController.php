@@ -118,7 +118,7 @@ class ArticleController extends Controller
         }
     }
 
-    public function storeImage($image)
+    private function storeImage($image)
     {
         return $image->store('imagesArticles', 'public');
     }
@@ -151,7 +151,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Le post a été supprimer',
+                'status_message' => 'L\'article a été supprimer',
                 'article' => $article
             ]);
         } catch (Exception $e) {

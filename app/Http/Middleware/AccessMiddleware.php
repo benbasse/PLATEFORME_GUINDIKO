@@ -13,8 +13,14 @@ class AccessMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+
+    public function handle(Request $request, Closure $next, string $role): Response
     {
-        return $next($request);
+        if (auth()->check() && auth()->user()->role === $role) {
+
+            return $next($request);
+        } else {
+            return redirect('/')->with('status', 'Vous netes pas autoriser a acceder a cette page');
+        }
     }
 }

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests\LoginMentorRequest;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Http\Requests\RegisterMentorRequest;
+use OpenApi\Annotations as OA;
+
 
 class MentorController extends Controller
 {
@@ -33,7 +35,7 @@ class MentorController extends Controller
             $user->telephone = $request->telephone;
             $user->nombre_annee_experience = $request->nombre_annee_experience;
             $user->email = $request->email;
-            // $user->articles_id = $request->articles_id;
+            $user->articles_id = $request->articles_id;
             $user->password = Hash::make($request->password);
 
             if ($request->hasFile('photo_profil')) {
@@ -43,9 +45,9 @@ class MentorController extends Controller
                 $user->photo_profil = $path;
             }
 
-            if($user->save()){
-             Mail::to($user->email)->send(new MentorMail($data));   
-            }
+            // if($user->save()){
+            //  Mail::to($user->email)->send(new MentorMail($data));   
+            // }
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'utilisateur ajouté avec succes',
@@ -95,7 +97,6 @@ class MentorController extends Controller
 
     public function logout()
     {
-
         $user = auth()->user();
         if ($user->tokens()->delete()) {
             Session::invalidate();
@@ -148,11 +149,16 @@ class MentorController extends Controller
     public function est_archive(Mentor $mentor)
     {
         try {
-            if ($mentor->est_archive == 0) {
+            if ($mentor->est_archive == 1) {
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Voici la liste des mentors qui sont archivés',
                     'mentor' => Mentor::where('est_archive', 1)->get(),
+                ]);
+            } else {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => "il n'y a pas de mentors archivés pour le moment",
                 ]);
             }
         } catch (Exception $e) {
@@ -188,6 +194,11 @@ class MentorController extends Controller
                         'status_code' => 200,
                         'status_message' => 'Voici la liste des mentors qui n\'ont pas atteint la limite et qui ne sont pas archivés',
                         'mentor' => Mentor::where('nombre_mentores', '>', 16)->get(),
+                    ]);
+                } else {
+                    return response()->json([
+                        'status_code' => 200,
+                        'status_message' => "il n'y pas de mentors qui ont atteint leurs limites",
                     ]);
                 }
             }

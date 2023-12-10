@@ -25,9 +25,10 @@ class EditSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "date_evenement" => "required|date",
-            "lieu" => "required",
-            "theme_evenement" => "required"
+            "en_ligne" =>"required",
+            "theme" => "required",
+            "libelle" => "required",
+            "mentorats_id" => "required",
         ];
     }
 
@@ -44,10 +45,10 @@ class EditSessionRequest extends FormRequest
     public function messages()
     {
         return[
-
-            "date_evenement.required" => "La date est obligatoire",
-            "lieu.required" => "Le lieu ne peut pas être null",
-            "theme_evenement" => "Le théme ne peut pas être null"
+            "mentorats_id.required" => "Le menroats_id ne peut pas être null",
+            "theme.required" => "Le theme ne peut pas être null",
+            "en_ligne.required" => "le champ en ligne ne peut pas être null",
+            "libelle.required" => "Le libelle ne peut pas être null"
         ];
     }
 }

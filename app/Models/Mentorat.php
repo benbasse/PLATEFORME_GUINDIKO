@@ -9,16 +9,16 @@ class Mentorat extends Model
 {
     use HasFactory;
 
-    public function Mentor()
+    public function mentor()
     {
-        return $this->belongsToMany(Mentor::class);
+        return $this->belongsToMany(Mentor::class, 'mentors_id');
     }
 
-    public function Users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'users_idx');
     }
-    public function Sessions()
+    public function sessions()
     {
         return $this->hasMany(Session::class);
     }

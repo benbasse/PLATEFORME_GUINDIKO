@@ -27,13 +27,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Pour les sessions (CRUD ET ARCHIVE)
 Route::get('session', [SessionController::class, 'index']);
-Route::get('session/show', [SessionController::class, 'show']);
+Route::get('session/show/{session}', [SessionController::class, 'show']);
 Route::post('session/create', [SessionController::class, 'store']);
 Route::delete('session/{session}', [SessionController::class, 'destroy']);
 Route::get('session/filtre', [SessionController::class, 'filtrerSession']);
 Route::put('session/edit/{session}', [SessionController::class, 'update']);
 Route::put('session/archive/{session}', [SessionController::class, 'archive']);
 Route::get('session/sessionArchive', [SessionController::class, 'sessionArchive']);
+Route::get('session/sessionNonArchive', [SessionController::class, 'sessionNonArchive']);
 
 
 //Pour les événements (ARCHIVER ET CRUD)
@@ -63,14 +64,10 @@ Route::get('mentor', [MentorController::class, 'index']);
 Route::get('mentor/nonArchive', [MentorController::class, 'non_archive']);
 Route::get('mentor/estArchive', [MentorController::class, 'est_archive']);
 Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
-Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
 
-//Pour les mentorats (CRUD)
-Route::get('mentorat/show', [MentoratController::class, 'show']);
-Route::get('mentorat/index', [MentoratController::class, 'index']);
-Route::post('mentorat/create', [MentoratController::class, 'store']);
+
 
 //Route d'inscription et de connexion pour les users
 Route::post('register', [UserController::class, 'register']);
@@ -79,16 +76,40 @@ Route::post('login', [UserController::class, 'login']);
 //ROute d'inscription, connexion et de deconnexion des mentors
 Route::post('login', [MentorController::class, 'login']);
 Route::post('registerMentor', [MentorController::class, 'registerMentor']);
+
 /*filtrage mentors*/
-Route::get('filterMentorsByName', [MentorController::class, 'filterMentorsByName']);
 Route::post('verifMail/mentor', [MentorController::class, 'verifMailMentor']);
+Route::get('filterMentorsByName', [MentorController::class, 'filterMentorsByName']);
 Route::post('resetPassword/mentor/{mentor}', [MentorController::class, 'resetPasswordMentor']);
+
+/*filtrage users*/
+Route::get('user/index', [UserController::class, 'index']);
+Route::put('user/archive/{user}', [UserController::class, 'archive']);
+Route::post('verifMail/user', [UserController::class, 'verifMailUser']);
+Route::get('user/mentoreArchive', [UserController::class, 'mentoreArchive']);
+Route::get('user/filterUsersByName', [UserController::class, 'filterUsersByName']);
+Route::get('user/mentoreNonArchive', [UserController::class, 'mentoreNonArchive']);
+Route::post('resetPassword/user/{user}', [UserController::class, 'resetPasswordUser']);
 
 
 /*routes d'acces pour mentors*/
+// Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
+//     Route::post('mentorats/create', [MentoratController::class, 'store']);
+// });
 Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
-Route::post('logout', [MentorController::class, 'logout']);
+    /*routes d'acces pour mentors*/
+    Route::post('logout', [MentorController::class, 'logout']);
+    Route::post('session/create', [SessionController::class, 'store']);
+    Route::post('mentorat/create', [MentoratController::class, 'store']);
+
 });
+
+
+// Route::post('logout', [MentorController::class, 'logout']);
+
+//Pour les mentorats (CRUD)
+Route::get('mentorats/index', [MentoratController::class, 'index']);
+Route::get('mentorats/show/{mentorat}', [MentoratController::class, 'show']);
 
 /*routes d'acces pour mentorés*/
 Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {

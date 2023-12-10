@@ -3,24 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMentoratRequest;
 use App\Models\Mentorat;
 use Exception;
 use Illuminate\Http\Request;
 
 class MentoratController extends Controller
 {
-    public function store(Request $request, Mentorat $mentorat)
+    // public function store(Request $request, Mentorat $mentorat)
+    // {
+    //     try {
+    //         $mentorat->mentors_id = auth()->user();
+    //         $mentorat->users_id = $request->users_id;
+    //         $mentorat->save();
+    //         return response()->json([
+    //             "status_code" => 200,
+    //             "status_message" => "Vous avez enregistrer un nouveau mentorat",
+    //         ]);
+    //     } catch (Exception $e) {
+    //         return response()->json($e);
+    //     }
+    // }
+
+    public function store(Request $request)
     {
-        try {
-            $mentorat->mentors_id = Auth()->guard('mentor')->user();
-            $mentorat->users_id = $request->users_id;
-            return response()->json([
-                "status_code" => 200,
-                "status_message" => "Vous avez enregistrer un nouveau mentorat",
-            ]);
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
+        $mentorat = new Mentorat();
+
+        $mentorat->users_id = $request->users_id;
+        $mentorat->mentors_id = auth()->user()->id;
+        $mentorat->save();
+
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'mentorat crée',
+            'status_body' => $mentorat
+        ]);
+
     }
 
     public function index(Mentorat $mentorat)

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5e9972b4773c23a33f046e24825d2e2d81842365',
+        'reference' => '4222a63dad94bcfb774bd0ebf917d83f35580ffa',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -385,7 +385,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5e9972b4773c23a33f046e24825d2e2d81842365',
+            'reference' => '4222a63dad94bcfb774bd0ebf917d83f35580ffa',
             'dev_requirement' => false,
         ),
         'laravel/pint' => array(
@@ -488,12 +488,12 @@
             'dev_requirement' => false,
         ),
         'mockery/mockery' => array(
-            'pretty_version' => '1.6.6',
-            'version' => '1.6.6.0',
+            'pretty_version' => '1.6.7',
+            'version' => '1.6.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mockery/mockery',
             'aliases' => array(),
-            'reference' => 'b8e0bb7d8c604046539c1115994632c74dcb361e',
+            'reference' => '0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06',
             'dev_requirement' => true,
         ),
         'monolog/monolog' => array(
@@ -521,12 +521,12 @@
             'dev_requirement' => true,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.72.0',
-            'version' => '2.72.0.0',
+            'pretty_version' => '2.72.1',
+            'version' => '2.72.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => 'a6885fcbad2ec4360b0e200ee0da7d9b7c90786b',
+            'reference' => '2b3b3db0a2d0556a177392ff1a3bf5608fa09f78',
             'dev_requirement' => false,
         ),
         'nette/schema' => array(
@@ -757,8 +757,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1260,7 +1260,7 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'reference' => '4f9237a1bb42455d609e6687d2613dde5b41a587',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.2',
@@ -1272,12 +1272,12 @@
             'dev_requirement' => true,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
-            'pretty_version' => '2.2.6',
-            'version' => '2.2.6.0',
+            'pretty_version' => 'v2.2.7',
+            'version' => '2.2.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tijsverkoyen/css-to-inline-styles',
             'aliases' => array(),
-            'reference' => 'c42125b83a4fa63b187fdf29f9c93cb7733da30c',
+            'reference' => '83ee6f38df0a63106a9e4536e3060458b74ccedb',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
@@ -1305,6 +1305,15 @@
             'install_path' => __DIR__ . '/../webmozart/assert',
             'aliases' => array(),
             'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
+            'dev_requirement' => false,
+        ),
+        'zircote/swagger-php' => array(
+            'pretty_version' => '4.8.0',
+            'version' => '4.8.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../zircote/swagger-php',
+            'aliases' => array(),
+            'reference' => '8ea52e3542133faf364bd9295d1a69406b465220',
             'dev_requirement' => false,
         ),
     ),

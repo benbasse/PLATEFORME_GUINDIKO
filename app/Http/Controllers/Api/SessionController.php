@@ -31,6 +31,7 @@ class SessionController extends Controller
             $session->update([
                 "est_archive" => 1,
             ]);
+            $session->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Vous avez archivés cette sessions',
@@ -100,6 +101,7 @@ class SessionController extends Controller
     public function store(CreateSessionRequest $request, Session $session)
     {
         try {
+            $session->mentorats_id = $request->mentorats_id;
             $session->libelle = $request->libelle;
             $session->en_ligne= $request->en_ligne;
             $session->theme = $request->theme;
@@ -107,7 +109,7 @@ class SessionController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Vous avez ajouter une session',
-                'session' => Session::all(),
+                'session' => $session,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -117,8 +119,9 @@ class SessionController extends Controller
     public function update(EditSessionRequest $request, Session $session)
     {
         try {
+            $session->mentorats_id = $request->mentorats_id;
             $session->libelle = $request->libelle;
-            $session->en_ligne= $request->en_ligne;
+            $session->en_ligne = $request->en_ligne;
             $session->theme = $request->theme;
             $session->save();
             return response()->json([
@@ -138,7 +141,7 @@ class SessionController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Vous avez supprimer cette session',
-                'session' => Session::all(),
+                'session' => $session,
             ]);
         } catch (Exception $e) {
             return response()->json($e);

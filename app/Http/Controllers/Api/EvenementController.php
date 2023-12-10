@@ -16,7 +16,7 @@ class EvenementController extends Controller
         try {
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Voici la liste des evenements non archivés',
+                'status_message' => 'Voici la liste des evenements',
                 'evenement' => Evenement::all(),
             ]);
         } catch (Exception $e) {
@@ -28,7 +28,7 @@ class EvenementController extends Controller
     {
         try {
             $evenement->update([
-                'est_archive' => 1,
+                "est_archive" => 1,
             ]);
             $evenement->save();
             return response()->json([
@@ -94,7 +94,7 @@ class EvenementController extends Controller
             $evenement = Evenement::where('libelle', 'like', '%' . $nameFilter . '%')->get();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Article filtrés par libelle avec succès',
+                'status_message' => 'Événement filtrés par libelle avec succès',
                 'evenement_filtre' => $evenement,
             ]);
         } catch (Exception $e) {
