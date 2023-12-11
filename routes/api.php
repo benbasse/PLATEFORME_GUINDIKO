@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\EvenementController;
 use App\Http\Controllers\Api\MentoratController;
+use App\Http\Controllers\Api\Newsletter;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,9 @@ Route::get('mentor/estArchive', [MentorController::class, 'est_archive']);
 Route::put('mentor/archive/{mentor}', [MentorController::class, 'archive']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
+
+//Route pour les newsletter
+Route::post('ajouterNewsletter',[Newsletter::class,'store']);
 
 
 
