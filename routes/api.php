@@ -93,9 +93,6 @@ Route::post('resetPassword/user/{user}', [UserController::class, 'resetPasswordU
 
 
 /*routes d'acces pour mentors*/
-// Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
-//     Route::post('mentorats/create', [MentoratController::class, 'store']);
-// });
 Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
     /*routes d'acces pour mentors*/
     Route::post('logout', [MentorController::class, 'logout']);
