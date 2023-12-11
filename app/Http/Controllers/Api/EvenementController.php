@@ -87,6 +87,31 @@ class EvenementController extends Controller
         }
     }
 
+
+    public function TotalEvenement()
+    {
+
+        try {
+
+           $totalevenement= Evenement::count();
+
+            return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Le nombre total de mentorés',
+            'data' => [
+            'TotalEvenement' => $totalevenement,
+            ]]);
+
+            } 
+        catch (Exception $e) {
+
+            
+            return response()->json($e);
+       }
+
+
+    }
+
     public function store(CreateEvenementRequest $request)
     {
         try {

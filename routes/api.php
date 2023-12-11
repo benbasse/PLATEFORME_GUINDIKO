@@ -32,6 +32,8 @@ Route::get('evenement/show', [EvenementController::class, 'show']);
 Route::post('evenement/create', [EvenementController::class, 'store']);
 Route::put('evenement/edit/{evenement}', [EvenementController::class, 'update']);
 Route::delete('evenement/{evenement}', [EvenementController::class, 'destroy']);
+Route::get('totalEvenement',[EvenementController::class,'TotalEvenement']);
+
 
 //Pour les articles(ARCHIVER ET CRUD)
 Route::put('articles/archives/{article}', [ArticleController::class, 'archive']);
