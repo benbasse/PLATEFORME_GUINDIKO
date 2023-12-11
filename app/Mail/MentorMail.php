@@ -16,9 +16,11 @@ class MentorMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+
+     public $data = [];
+    public function __construct($user)
     {
-        $this->data = $data;
+        $this->data = $user;
     }
 
     /**

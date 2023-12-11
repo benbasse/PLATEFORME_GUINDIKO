@@ -1,0 +1,2316 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "guindiko",
+      "description": "Description de guindiko",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api/register": {
+        "post": {
+          "tags": ["Authentification"],
+          "summary": "Permet d'inscrire un mentoré",
+          "requestBody": {
+            "description": "Données d'inscription d'un mentoré",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nom": { "type": "string" },
+                    "telephone": { "type": "string" },
+                    "parcours": { "type": "string" },
+                    "statut": { "type": "string" },
+                    "email": { "type": "string" },
+                    "password": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de l'inscription",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Utilisateur ajouté avec succès",
+                    "status_body": {
+                      "nom": "Nom du mentoré",
+                      "telephone": "Numéro de téléphone",
+                      "parcours": "Parcours du mentoré",
+                      "statut": "Statut du mentoré",
+                      "email": "email@exemple.com",
+                      "password": "motdepasse"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'inscription",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'inscription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "tags": ["Authentification"],
+          "summary": "Connecte un utilisateur (mentor ou utilisateur classique).",
+          "requestBody": {
+            "description": "Données d'authentification (email et mot de passe).",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la connexion.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Utilisateur connecté.",
+                    "status_body": {
+                      "id": 1,
+                      "nom": "Nom de l'utilisateur",
+                      "email": "utilisateur@exemple.com"
+                    },
+                    "token": "jeton_d'authentification"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Identifiants non valides.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 403,
+                    "status_message": "Identifiants non valides."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/logout": {
+        "post": {
+          "tags": ["Authentification"],
+          "summary": "Déconnecte le mentor en révoquant tous les tokens d'authentification.",
+          "responses": {
+            "200": {
+              "description": "Déconnexion réussie.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_body": "Déconnexion réussie."
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Échec de la déconnexion.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_body": "Échec de la déconnexion."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/registerMentor": {
+        "post": {
+          "tags": ["Authentification"],
+          "summary": "Permet d'inscrire un mentor.",
+          "requestBody": {
+            "description": "Données d'inscription d'un mentor.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nom": { "type": "string" },
+                    "telephone": { "type": "string" },
+                    "nombre_annee_experience": { "type": "integer" },
+                    "email": { "type": "string" },
+                    "articles_id": { "type": "integer" },
+                    "password": { "type": "string" },
+                    "photo_profil": { "type": "string", "format": "binary" }
+                  },
+                  "required": ["nom", "email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de l'inscription mentor.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Utilisateur ajouté avec succès.",
+                    "status_body": {
+                      "nom": "Nom du mentor",
+                      "telephone": "Numéro de téléphone",
+                      "nombre_annee_experience": 3,
+                      "email": "email@exemple.com",
+                      "articles_id": 1,
+                      "photo_profil": "chemin/vers/photo.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'inscription mentor.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'inscription mentor."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/logoutUser": {
+        "post": {
+          "tags": ["Authentification"],
+          "summary": "Déconnecte l'utilisateur en révoquant tous les tokens d'authentification.",
+          "responses": {
+            "200": {
+              "description": "Déconnexion réussie.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Déconnexion réussie."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Échec de la déconnexion.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Échec de la déconnexion."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Récupère la liste de tous les articles.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des articles.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste de tous les articles.",
+                    "articles": [
+                      {
+                        "id": 1,
+                        "titre": "Titre de l'article 1",
+                        "contenu": "Contenu de l'article 1"
+                      },
+                      {
+                        "id": 2,
+                        "titre": "Titre de l'article 2",
+                        "contenu": "Contenu de l'article 2"
+                      }
+
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des articles.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des articles."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/create": {
+        "post": {
+          "tags": ["Articles"],
+          "summary": "Crée un nouvel article.",
+          "requestBody": {
+            "description": "Données pour créer un nouvel article.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "libelle": { "type": "string" },
+                    "debouche": { "type": "string" },
+                    "description": { "type": "string" },
+                    "date_publication": { "type": "string", "format": "date" },
+                    "image": { "type": "string", "format": "binary" }
+                  },
+                  "required": ["libelle", "debouche", "description", "date_publication", "image"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la création de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'article a été ajouté.",
+                    "article": {
+                      "id": 1,
+                      "libelle": "Libellé de l'article",
+                      "debouche": "Débouché de l'article",
+                      "description": "Description de l'article",
+                      "date_publication": "2023-12-31",
+                      "image": "chemin/vers/image.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la création de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la création de l'article."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/show/{article}": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Récupère un article spécifique.",
+          "parameters": [
+            {
+              "name": "article",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'article à récupérer."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de l'article spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'article spécifique que vous voulez voir.",
+                    "article": {
+                      "id": 1,
+                      "libelle": "Libellé de l'article",
+                      "debouche": "Débouché de l'article",
+                      "description": "Description de l'article",
+                      "date_publication": "2023-12-31",
+                      "image": "chemin/vers/image.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'article spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'article spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/{article}": {
+        "delete": {
+          "tags": ["Articles"],
+          "summary": "Supprime un article spécifique.",
+          "parameters": [
+            {
+              "name": "article",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'article à supprimer."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de la suppression de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'article a été supprimé.",
+                    "article": {
+                      "id": 1,
+                      "libelle": "Libellé de l'article",
+                      "debouche": "Débouché de l'article",
+                      "description": "Description de l'article",
+                      "date_publication": "2023-12-31",
+                      "image": "chemin/vers/image.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'article spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'article spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/edit/{article}": {
+        "put": {
+          "tags": ["Articles"],
+          "summary": "Met à jour un article spécifique.",
+          "parameters": [
+            {
+              "name": "article",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'article à mettre à jour."
+            }
+          ],
+          "requestBody": {
+            "description": "Données pour mettre à jour un article.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "libelle": { "type": "string" },
+                    "debouche": { "type": "string" },
+                    "description": { "type": "string" },
+                    "date_publication": { "type": "string", "format": "date" },
+                    "image": { "type": "string", "format": "binary" }
+                  },
+                  "required": ["libelle", "debouche", "description", "date_publication"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la mise à jour de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'article a été modifié.",
+                    "article": {
+                      "id": 1,
+                      "libelle": "Libellé de l'article mis à jour",
+                      "debouche": "Débouché de l'article mis à jour",
+                      "description": "Description de l'article mise à jour",
+                      "date_publication": "2023-12-31",
+                      "image": "chemin/vers/image.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'article spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'article spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/filtre": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Filtre les articles par libellé.",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Texte à rechercher dans le libellé des articles."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès du filtrage des articles par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Articles filtrés par libellé avec succès.",
+                    "article_filtre": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'article filtré 1",
+                        "debouche": "Débouché de l'article filtré 1",
+                        "description": "Description de l'article filtré 1",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'article filtré 2",
+                        "debouche": "Débouché de l'article filtré 2",
+                        "description": "Description de l'article filtré 2",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image2.jpg"
+                      }
+
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors du filtrage des articles par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors du filtrage des articles par libellé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/archives/{article}": {
+        "put": {
+          "tags": ["Articles"],
+          "summary": "Archive un article spécifique.",
+          "parameters": [
+            {
+              "name": "article",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'article à archiver."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'archivage de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Le post a été archivé."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'article spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'article spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'archivage de l'article.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'archivage de l'article."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/articlesArchives": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Récupère la liste des articles archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des articles archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des articles archivés.",
+                    "articles_archives": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'article archivé 1",
+                        "debouche": "Débouché de l'article archivé 1",
+                        "description": "Description de l'article archivé 1",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'article archivé 2",
+                        "debouche": "Débouché de l'article archivé 2",
+                        "description": "Description de l'article archivé 2",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image2.jpg"
+                      }
+
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des articles archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des articles archivés."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/articles/articlesNonArchives": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Récupère la liste des articles non archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des articles non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des articles non archivés.",
+                    "articles_non_archives": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'article non archivé 1",
+                        "debouche": "Débouché de l'article non archivé 1",
+                        "description": "Description de l'article non archivé 1",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'article non archivé 2",
+                        "debouche": "Débouché de l'article non archivé 2",
+                        "description": "Description de l'article non archivé 2",
+                        "date_publication": "2023-12-31",
+                        "image": "chemin/vers/image2.jpg"
+                      }
+
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des articles non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des articles non archivés."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement": {
+        "get": {
+          "tags": ["Événements"],
+          "summary": "Récupère la liste des événements.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des événements.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des événements.",
+                    "evenements": [
+                      {
+                        "id": 1,
+                        "titre": "Titre de l'événement 1",
+                        "date_debut": "2023-12-31",
+                        "date_fin": "2023-12-31",
+                        "lieu": "Lieu de l'événement 1"
+                      },
+                      {
+                        "id": 2,
+                        "titre": "Titre de l'événement 2",
+                        "date_debut": "2023-12-31",
+                        "date_fin": "2023-12-31",
+                        "lieu": "Lieu de l'événement 2"
+                      }
+
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des événements.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des événements."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/create": {
+        "post": {
+          "tags": ["Événements"],
+          "summary": "Crée un nouvel événement.",
+          "requestBody": {
+            "description": "Données pour créer un événement.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "libelle": { "type": "string" },
+                    "description": { "type": "string" },
+                    "date_evenement": { "type": "string", "format": "date" },
+                    "heure_evenement": { "type": "string", "format": "time" },
+                    "lieu": { "type": "string" },
+                    "image": { "type": "string", "format": "binary" }
+                  },
+                  "required": ["libelle", "description", "date_evenement", "heure_evenement", "lieu"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la création de l'événement.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'événement a été ajouté.",
+                    "evenement": {
+                      "id": 1,
+                      "libelle": "Libellé de l'événement",
+                      "description": "Description de l'événement",
+                      "date_evenement": "2023-12-31",
+                      "heure_evenement": "12:00:00",
+                      "lieu": "Lieu de l'événement",
+                      "image": "chemin/vers/image.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la création de l'événement.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la création de l'événement."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/show/{evenement}": {
+        "get": {
+          "tags": ["Événements"],
+          "summary": "Affiche un événement spécifique.",
+          "parameters": [
+            {
+              "name": "evenement",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'événement à afficher."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'affichage de l'événement spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici l'événement spécifique.",
+                    "evenement": {
+                      "id": 1,
+                      "libelle": "Libellé de l'événement spécifique",
+                      "description": "Description de l'événement spécifique",
+                      "date_evenement": "2023-12-31",
+                      "heure_evenement": "12:00:00",
+                      "lieu": "Lieu de l'événement spécifique",
+                      "image": "chemin/vers/image_specifique.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'événement spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'événement spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'affichage de l'événement spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'affichage de l'événement spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/{evenement}": {
+        "delete": {
+          "tags": ["Événements"],
+          "summary": "Supprime un événement spécifique.",
+          "parameters": [
+            {
+              "name": "evenement",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'événement à supprimer."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de la suppression de l'événement.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'événement a été supprimé.",
+                    "evenement": {
+                      "id": 1,
+                      "libelle": "Libellé de l'événement supprimé",
+                      "description": "Description de l'événement supprimé",
+                      "date_evenement": "2023-12-31",
+                      "heure_evenement": "12:00:00",
+                      "lieu": "Lieu de l'événement supprimé",
+                      "image": "chemin/vers/image_supprime.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'événement spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'événement spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la suppression de l'événement spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la suppression de l'événement spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/edit/{evenement}": {
+        "put": {
+          "tags": ["Événements"],
+          "summary": "Met à jour un événement spécifique.",
+          "parameters": [
+            {
+              "name": "evenement",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'événement à mettre à jour."
+            }
+          ],
+          "requestBody": {
+            "description": "Données pour mettre à jour un événement.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "libelle": { "type": "string" },
+                    "description": { "type": "string" },
+                    "date_evenement": { "type": "string", "format": "date" },
+                    "heure_evenement": { "type": "string", "format": "time" },
+                    "lieu": { "type": "string" },
+                    "image": { "type": "string", "format": "binary" }
+                  },
+                  "required": ["libelle", "description", "date_evenement", "heure_evenement", "lieu"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la mise à jour de l'événement.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'événement a été mis à jour.",
+                    "evenement": {
+                      "id": 1,
+                      "libelle": "Libellé de l'événement mis à jour",
+                      "description": "Description de l'événement mis à jour",
+                      "date_evenement": "2023-12-31",
+                      "heure_evenement": "12:00:00",
+                      "lieu": "Lieu de l'événement mis à jour",
+                      "image": "chemin/vers/image_mise_a_jour.jpg"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'événement spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'événement spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la mise à jour de l'événement spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la mise à jour de l'événement spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/filtre": {
+        "get": {
+          "tags": ["Événements"],
+          "summary": "Filtre les événements par libellé.",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Libellé à utiliser pour filtrer les événements."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès du filtrage des événements par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Événements filtrés par libellé avec succès.",
+                    "evenement_filtre": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'événement 1",
+                        "description": "Description de l'événement 1",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement 1",
+                        "image": "chemin/vers/image_evenement1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'événement 2",
+                        "description": "Description de l'événement 2",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement 2",
+                        "image": "chemin/vers/image_evenement2.jpg"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors du filtrage des événements par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors du filtrage des événements par libellé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/archive/{evenement}": {
+        "put": {
+          "tags": ["Événements"],
+          "summary": "Archive un événement spécifique.",
+          "parameters": [
+            {
+              "name": "evenement",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'événement à archiver."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'archivage de l'événement.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "L'événement a été archivé."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "L'événement spécifique n'a pas été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "L'événement spécifique n'a pas été trouvé."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'archivage de l'événement spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'archivage de l'événement spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/EvenementArchive": {
+        "get": {
+          "tags": ["Événements"],
+          "summary": "Récupère la liste des événements archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des événements archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des événements archivés.",
+                    "evenements_archives": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'événement archivé 1",
+                        "description": "Description de l'événement archivé 1",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement archivé 1",
+                        "image": "chemin/vers/image_archivage1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'événement archivé 2",
+                        "description": "Description de l'événement archivé 2",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement archivé 2",
+                        "image": "chemin/vers/image_archivage2.jpg"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des événements archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des événements archivés."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/evenement/EvenementNonArchive": {
+        "get": {
+          "tags": ["Événements"],
+          "summary": "Récupère la liste des événements non archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des événements non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des événements non archivés.",
+                    "evenements_non_archives": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de l'événement non archivé 1",
+                        "description": "Description de l'événement non archivé 1",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement non archivé 1",
+                        "image": "chemin/vers/image_non_archivage1.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de l'événement non archivé 2",
+                        "description": "Description de l'événement non archivé 2",
+                        "date_evenement": "2023-12-31",
+                        "heure_evenement": "12:00:00",
+                        "lieu": "Lieu de l'événement non archivé 2",
+                        "image": "chemin/vers/image_non_archivage2.jpg"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des événements non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des événements non archivés."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session": {
+        "get": {
+          "tags": ["Sessions"],
+          "summary": "Récupère la liste de toutes les sessions.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des sessions.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste de toutes les sessions.",
+                    "sessions": [
+                      {
+                        "id": 1,
+                        "libelle": "Libellé de la session 1",
+                        "date_debut": "2023-12-31",
+                        "date_fin": "2024-01-31"
+                      },
+                      {
+                        "id": 2,
+                        "libelle": "Libellé de la session 2",
+                        "date_debut": "2023-12-31",
+                        "date_fin": "2024-01-31"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération de la liste des sessions.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération de la liste des sessions."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/show/{session}": {
+        "get": {
+          "tags": ["Sessions"],
+          "summary": "Récupère une session spécifique.",
+          "parameters": [
+            {
+              "name": "session",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de la session à récupérer."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la session spécifique.",
+                    "session": {
+                      "id": 1,
+                      "libelle": "Libellé de la session 1",
+                      "date_debut": "2023-12-31",
+                      "date_fin": "2024-01-31"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "La session spécifique n'a pas été trouvée.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "La session spécifique n'a pas été trouvée."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération de la session spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/create": {
+        "post": {
+          "tags": ["Sessions"],
+          "summary": "Crée une nouvelle session.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "mentorats_id": 1,
+                  "libelle": "Libellé de la nouvelle session",
+                  "en_ligne": true,
+                  "theme": "Thème de la nouvelle session"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la création de la nouvelle session.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez ajouté une nouvelle session.",
+                    "session": {
+                      "id": 1,
+                      "mentorats_id": 1,
+                      "libelle": "Libellé de la nouvelle session",
+                      "en_ligne": true,
+                      "theme": "Thème de la nouvelle session"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la création de la nouvelle session.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la création de la nouvelle session."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/{session}": {
+        "delete": {
+          "tags": ["Sessions"],
+          "summary": "Supprime une session spécifique.",
+          "parameters": [
+            {
+              "name": "session",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de la session à supprimer."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de la suppression de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez supprimé la session avec succès.",
+                    "session": {
+                      "id": 1,
+                      "mentorats_id": 1,
+                      "libelle": "Libellé de la session à supprimer",
+                      "en_ligne": true,
+                      "theme": "Thème de la session à supprimer"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "La session spécifique n'a pas été trouvée.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "La session spécifique n'a pas été trouvée."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la suppression de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la suppression de la session spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/filtre": {
+        "get": {
+          "tags": ["Sessions"],
+          "summary": "Filtre les sessions par libellé.",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Libellé pour le filtrage des sessions."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès du filtrage des sessions par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Sessions filtrées par libellé avec succès.",
+                    "session_filtre": [
+                      {
+                        "id": 1,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session filtrée 1",
+                        "en_ligne": true,
+                        "theme": "Thème de la session filtrée 1"
+                      },
+                      {
+                        "id": 2,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session filtrée 2",
+                        "en_ligne": true,
+                        "theme": "Thème de la session filtrée 2"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors du filtrage des sessions par libellé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors du filtrage des sessions par libellé."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/edit/{session}": {
+        "put": {
+          "tags": ["Sessions"],
+          "summary": "Met à jour une session spécifique.",
+          "parameters": [
+            {
+              "name": "session",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de la session à mettre à jour."
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "mentorats_id": 1,
+                  "libelle": "Nouveau libellé de la session",
+                  "en_ligne": true,
+                  "theme": "Nouveau thème de la session"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la mise à jour de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez modifié la session avec succès.",
+                    "session": [
+                      {
+                        "id": 1,
+                        "mentorats_id": 1,
+                        "libelle": "Nouveau libellé de la session",
+                        "en_ligne": true,
+                        "theme": "Nouveau thème de la session"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "La session spécifique n'a pas été trouvée.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "La session spécifique n'a pas été trouvée."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la mise à jour de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la mise à jour de la session spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/archive/{session}": {
+        "put": {
+          "tags": ["Sessions"],
+          "summary": "Archive une session spécifique.",
+          "parameters": [
+            {
+              "name": "session",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de la session à archiver."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'archivage de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez archivé la session avec succès."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "La session spécifique n'a pas été trouvée.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 404,
+                    "status_message": "La session spécifique n'a pas été trouvée."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'archivage de la session spécifique.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'archivage de la session spécifique."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/sessionArchive": {
+        "get": {
+          "tags": ["Sessions"],
+          "summary": "Récupère la liste des sessions archivées.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des sessions archivées.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des sessions archivées",
+                    "session": [
+                      {
+                        "id": 1,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session archivée 1",
+                        "en_ligne": true,
+                        "theme": "Thème de la session archivée 1"
+                      },
+                      {
+                        "id": 2,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session archivée 2",
+                        "en_ligne": true,
+                        "theme": "Thème de la session archivée 2"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des sessions archivées.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des sessions archivées."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/session/sessionNonArchive": {
+        "get": {
+          "tags": ["Sessions"],
+          "summary": "Récupère la liste des sessions non archivées.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération des sessions non archivées.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des sessions non archivées",
+                    "session": [
+                      {
+                        "id": 1,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session non archivée 1",
+                        "en_ligne": true,
+                        "theme": "Thème de la session non archivée 1"
+                      },
+                      {
+                        "id": 2,
+                        "mentorats_id": 1,
+                        "libelle": "Libellé de la session non archivée 2",
+                        "en_ligne": true,
+                        "theme": "Thème de la session non archivée 2"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération des sessions non archivées.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération des sessions non archivées."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor": {
+        "get": {
+          "tags": ["Mentors"],
+          "summary": "Récupère la liste de tous les mentors.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste de tous les mentors.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste de tous les mentors",
+                    "Mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentor 1",
+                        "telephone": "123456789",
+                        "nombre_annee_experience": 5
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentor 2",
+                        "telephone": "987654321",
+                        "nombre_annee_experience": 8
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération de la liste de tous les mentors.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération de la liste de tous les mentors."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor/nonArchive": {
+        "get": {
+          "tags": ["Mentors"],
+          "summary": "Récupère la liste des mentors non archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentors non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des mentors non archivés",
+                    "mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentor 1",
+                        "telephone": "123456789",
+                        "nombre_annee_experience": 5
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentor 2",
+                        "telephone": "987654321",
+                        "nombre_annee_experience": 8
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de la récupération de la liste des mentors non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de la récupération de la liste des mentors non archivés."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor/estArchive": {
+        "get": {
+          "tags": ["Mentors"],
+          "summary": "Récupère la liste des mentors archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentors archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des mentors archivés",
+                    "mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentor archivé 1",
+                        "telephone": "123456789",
+                        "nombre_annee_experience": 5
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentor archivé 2",
+                        "telephone": "987654321",
+                        "nombre_annee_experience": 8
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Aucun mentor archivé pour le moment.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Il n'y a pas de mentors archivés pour le moment."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor/archive/{mentor}": {
+        "put": {
+          "tags": ["Mentors"],
+          "summary": "Archive un mentor.",
+          "parameters": [
+            {
+              "name": "mentor",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID du mentor à archiver."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'archivage du mentor.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez archivé ce mentor"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'archivage du mentor.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur lors de l'archivage du mentor."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor/nombreMentor": {
+        "get": {
+          "tags": ["Mentors"],
+          "summary": "Récupère la liste des mentors qui n'ont pas atteint la limite et qui ne sont pas archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentors.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des mentors qui n'ont pas atteint la limite et qui ne sont pas archivés",
+                    "mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentor 1",
+                        "telephone": "123456789",
+                        "nombre_annee_experience": 5
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentor 2",
+                        "telephone": "987654321",
+                        "nombre_annee_experience": 8
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Aucun mentor trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Il n'y a pas de mentors qui n'ont pas atteint la limite et qui ne sont pas archivés pour le moment."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/mentor/nombreMentorAtteint": {
+        "get": {
+          "tags": ["Mentors"],
+          "summary": "Récupère la liste des mentors ayant atteint la limite.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentors.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des mentors qui ont atteint la limite et qui ne sont pas archivés",
+                    "mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentor 1",
+                        "telephone": "123456789",
+                        "nombre_annee_experience": 5
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentor 2",
+                        "telephone": "987654321",
+                        "nombre_annee_experience": 8
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Aucun mentor trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Il n'y a pas de mentors qui ont atteint la limite pour le moment."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/index": {
+        "get": {
+          "tags": ["Utilisateurs"],
+          "summary": "Récupère la liste de tous les mentorés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentorés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste de tous les mentorés.",
+                    "mentorés": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentoré 1",
+                        "telephone": "123456789",
+                        "parcours": "Parcours du mentoré 1",
+                        "statut": "Statut du mentoré 1",
+                        "email": "email@example.com"
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentoré 2",
+                        "telephone": "987654321",
+                        "parcours": "Parcours du mentoré 2",
+                        "statut": "Statut du mentoré 2",
+                        "email": "another_email@example.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Aucun mentoré trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Il n'y a pas de mentorés pour le moment."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/archive/{user}": {
+        "put": {
+          "tags": ["Utilisateurs"],
+          "summary": "Archive un mentoré.",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID du mentoré à archiver."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Succès de l'archivage du mentoré.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Vous avez archivé ce mentoré."
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Erreur lors de l'archivage du mentoré.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Une erreur s'est produite lors de l'archivage du mentoré."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/verifMail/user": {
+        "post": {
+          "tags": ["Utilisateurs"],
+          "summary": "Vérifie l'e-mail d'un utilisateur.",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "email": "example@example.com"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "L'utilisateur a été trouvé.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Utilisateur trouvé",
+                    "user": {
+                      "id": 1,
+                      "nom": "John Doe",
+                      "email": "example@example.com"
+                    }
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "L'utilisateur n'est pas inscrit.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 422,
+                    "status_message": "Utilisateur non inscrit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/mentoreArchive": {
+        "get": {
+          "tags": ["Utilisateurs"],
+          "summary": "Obtient la liste des mentorés archivés.",
+          "responses": {
+            "200": {
+              "description": "Liste des mentorés archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste de tous les mentorés archivés",
+                    "Mentor": [
+                      {
+                        "id": 1,
+                        "nom": "John Doe",
+                        "email": "john@example.com"
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Jane Doe",
+                        "email": "jane@example.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erreur serveur.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur serveur"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/filterUsersByName": {
+        "get": {
+          "tags": ["Utilisateurs"],
+          "summary": "Filtre les utilisateurs par nom.",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "description": "Nom pour filtrer les utilisateurs.",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Utilisateurs filtrés par nom avec succès.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Utilisateurs filtrés par nom avec succès",
+                    "filtered_users": [
+                      {
+                        "id": 1,
+                        "nom": "John Doe",
+                        "email": "john@example.com"
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Jane Doe",
+                        "email": "jane@example.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erreur serveur.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 500,
+                    "status_message": "Erreur serveur"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/mentoreNonArchive": {
+        "get": {
+          "tags": ["Utilisateurs"],
+          "summary": "Récupère la liste des mentorés non archivés.",
+          "responses": {
+            "200": {
+              "description": "Succès de la récupération de la liste des mentorés non archivés.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Voici la liste des mentorés non archivés",
+                    "Mentor": [
+                      {
+                        "id": 1,
+                        "nom": "Nom du mentoré 1",
+                        "telephone": "123456789"
+                      },
+                      {
+                        "id": 2,
+                        "nom": "Nom du mentoré 2",
+                        "telephone": "987654321"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Aucun mentoré non archivé pour le moment.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Il n'y a pas de mentorés non archivés pour le moment."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/resetPassword/user/{user}": {
+        "post": {
+          "tags": ["Utilisateurs"],
+          "summary": "Réinitialise le mot de passe d'un utilisateur.",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID de l'utilisateur dont le mot de passe doit être réinitialisé."
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "password": "NouveauMotDePasse123!"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Succès de la réinitialisation du mot de passe.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 200,
+                    "status_message": "Votre mot de passe a été modifié",
+                    "user": {
+                      "id": 1,
+                      "nom": "Nom de l'utilisateur",
+                      "email": "utilisateur@example.com"
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Échec de la réinitialisation du mot de passe.",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "status_code": 400,
+                    "status_message": "Votre mot de passe est invalide",
+                    "user": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    }
+  
+  

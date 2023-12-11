@@ -9,6 +9,7 @@ use App\Models\Article;
 use Exception;
 use Illuminate\Http\Request;
 
+
 class ArticleController extends Controller
 {
     public function index(Article $article)
@@ -23,6 +24,7 @@ class ArticleController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function Archive(Article $article)
     {
@@ -40,6 +42,7 @@ class ArticleController extends Controller
         }
     }
 
+
     public function articlesArchives(Article $article)
     {
         try {
@@ -54,6 +57,7 @@ class ArticleController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function articlesNonArchives(Article $article)
     {
@@ -70,6 +74,7 @@ class ArticleController extends Controller
         }
     }
 
+
     public function show(Article $article)
     {
         try {
@@ -82,6 +87,7 @@ class ArticleController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function filtrerArticles(Request $request)
     {
@@ -97,6 +103,7 @@ class ArticleController extends Controller
             return response()->json([$e]);
         }
     }
+
 
     public function store(CreateArticleRequest $request)
     {

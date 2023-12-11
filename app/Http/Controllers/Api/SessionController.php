@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
+
+
     public function index(Session $session)
     {
         try {
@@ -24,6 +26,7 @@ class SessionController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function archive(Session $session)
     {
@@ -41,6 +44,7 @@ class SessionController extends Controller
         }
     }
 
+
     public function sessionArchive(Session $session)
     {
         try {
@@ -55,6 +59,7 @@ class SessionController extends Controller
             return response()->json($e);
         }
     }
+
     public function sessionNonArchive(Session $session)
     {
         try {
@@ -70,6 +75,7 @@ class SessionController extends Controller
         }
     }
 
+  
     public function show(Session $session)
     {
         try {
@@ -82,6 +88,7 @@ class SessionController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function filtrerSession(Request $request)
     {
@@ -97,6 +104,7 @@ class SessionController extends Controller
             return response()->json([$e]);
         }
     }
+
 
     public function store(CreateSessionRequest $request, Session $session)
     {
@@ -116,6 +124,7 @@ class SessionController extends Controller
         }
     }
 
+
     public function update(EditSessionRequest $request, Session $session)
     {
         try {
@@ -133,6 +142,7 @@ class SessionController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function destroy(Session $session)
     {

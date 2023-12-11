@@ -8,22 +8,9 @@ use App\Models\Mentorat;
 use Exception;
 use Illuminate\Http\Request;
 
+
 class MentoratController extends Controller
 {
-    // public function store(Request $request, Mentorat $mentorat)
-    // {
-    //     try {
-    //         $mentorat->mentors_id = auth()->user();
-    //         $mentorat->users_id = $request->users_id;
-    //         $mentorat->save();
-    //         return response()->json([
-    //             "status_code" => 200,
-    //             "status_message" => "Vous avez enregistrer un nouveau mentorat",
-    //         ]);
-    //     } catch (Exception $e) {
-    //         return response()->json($e);
-    //     }
-    // }
 
     public function store(Request $request)
     {
@@ -53,6 +40,7 @@ class MentoratController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function show(Mentorat $mentorat)
     {

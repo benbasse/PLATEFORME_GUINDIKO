@@ -9,8 +9,10 @@ use App\Models\Evenement;
 use Illuminate\Http\Request;
 use Mockery\CountValidator\Exception;
 
+
 class EvenementController extends Controller
 {
+
     public function index(Evenement $evenement)
     {
         try {
@@ -23,6 +25,7 @@ class EvenementController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function archive(Evenement $evenement)
     {
@@ -40,7 +43,7 @@ class EvenementController extends Controller
         }
     }
 
-    //Liste des evenement non archives
+
     public function EvenemenNontArchive(Evenement $evenement)
     {
         try {
@@ -56,7 +59,8 @@ class EvenementController extends Controller
         }
     }
 
-    //Cette methode permet de récuperer un événement spécifique
+
+
     public function show(Evenement $evenement)
     {
         try {
@@ -69,8 +73,6 @@ class EvenementController extends Controller
             return response()->json($e);
         }
     }
-
-
 
     public function EvenementArchive(Evenement $evenement)
     {
@@ -87,6 +89,7 @@ class EvenementController extends Controller
         }
     }
 
+
     public function filtrerEvenements(Request $request)
     {
         try {
@@ -101,6 +104,7 @@ class EvenementController extends Controller
             return response()->json([$e]);
         }
     }
+
 
     public function store(CreateEvenementRequest $request)
     {
@@ -128,6 +132,7 @@ class EvenementController extends Controller
         return $image->store('evenementImage', 'public');
     }
 
+
     public function update(EditEvenementRequest $request, Evenement $evenement)
     {
         try {
@@ -150,6 +155,7 @@ class EvenementController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function destroy(Evenement $evenement)
     {

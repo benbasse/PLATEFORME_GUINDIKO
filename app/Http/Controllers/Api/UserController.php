@@ -60,6 +60,7 @@ class UserController extends Controller
             return response()->json([$e]);
         }
     }
+
     public function index()
     {
         try {
@@ -72,6 +73,7 @@ class UserController extends Controller
             return response()->json($e);
         }
     }
+
     public function mentoreNonArchive()
     {
         try {
@@ -84,6 +86,7 @@ class UserController extends Controller
             return response()->json($e);
         }
     }
+
     public function mentoreArchive()
     {
         try {
@@ -96,6 +99,7 @@ class UserController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function archive(User $user)
     {
@@ -111,6 +115,7 @@ class UserController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function verifMailUser(Request $request)
     {
@@ -128,6 +133,7 @@ class UserController extends Controller
             ]);
         }
     }
+
 
     public function resetPasswordUser(Request $request, User $user)
     {

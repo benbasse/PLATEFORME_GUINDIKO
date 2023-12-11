@@ -18,15 +18,13 @@ use App\Http\Requests\RegisterMentorRequest;
 use OpenApi\Annotations as OA;
 
 
+
 class MentorController extends Controller
 {
 
     public function registerMentor(RegisterMentorRequest $request)
     {
-        $data = [
-            'nom' => $request->nom,
-            'email' => $request->email,
-        ];
+
 
         try {
             $user = new Mentor();
@@ -45,9 +43,9 @@ class MentorController extends Controller
                 $user->photo_profil = $path;
             }
 
-            // if($user->save()){
-            //  Mail::to($user->email)->send(new MentorMail($data));   
-            // }
+            if($user->save()){
+             Mail::to($user->email)->send(new MentorMail($user));   
+            }
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'utilisateur ajouté avec succes',
@@ -106,7 +104,7 @@ class MentorController extends Controller
             ]);
         } else {
             return response()->json([
-                'status_code' => 200,
+                'status_code' => 400,
                 "status_body" => "deconnexion echouée"
             ]);
         }
@@ -115,6 +113,7 @@ class MentorController extends Controller
 
 
     }
+
 
     public function index()
     {
@@ -129,7 +128,8 @@ class MentorController extends Controller
         }
     }
 
-    // Method pour lister les mentors dont leurs état d'archive est false
+
+
     public function non_archive(Mentor $mentor)
     {
         try {
@@ -145,7 +145,8 @@ class MentorController extends Controller
         }
     }
 
-    // Method pour lister les user dont leurs état d'archive est true
+
+
     public function est_archive(Mentor $mentor)
     {
         try {
@@ -166,7 +167,6 @@ class MentorController extends Controller
         }
     }
 
-    //Liste des users qui ont des etats non archive et qui n'ont pas atteint leurs limite max de mentorés
     public function nombre_mentor(Mentor $mentor)
     {
         try {
@@ -184,7 +184,6 @@ class MentorController extends Controller
         }
     }
 
-    //Cette methode permet de lister les mentors qui ont atteint leurs limite de mentorés mais ils ne sont pas archivés
     public function nombre_mentor_atteint(Mentor $mentor)
     {
         try {
@@ -207,6 +206,7 @@ class MentorController extends Controller
         }
     }
 
+
     public function archive(Mentor $mentor)
     {
         try {
@@ -221,6 +221,7 @@ class MentorController extends Controller
             return response()->json($e);
         }
     }
+
 
     public function filterMentorsByName(Request $request)
     {
