@@ -26,6 +26,7 @@ class EditEvenementRequest extends FormRequest
         return [
             "libelle" => "required",
             "description" => "required",
+            "image"=>"sometimes",
             "heure_evenement" => "required",
             "date_evenement" => "required|date",
             "lieu" => "required"
@@ -47,8 +48,7 @@ class EditEvenementRequest extends FormRequest
     {
         return[
             "libelle.required" => "le libelle doit être fourni",
-            "description" => "la description doit être fourni",
-            "image.sometimes" => "l'image ne doit pas être null",
+            "description.required" => "la description doit être fourni",
             "image.image" => "Seul les images sont autorisés",
             "date_evenement.required" => "La date est obligatoire",
             "date.date" => "Le format date n'est pas correct",
