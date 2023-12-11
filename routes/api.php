@@ -27,19 +27,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Pour les sessions (CRUD ET ARCHIVE)
-
 Route::get('session/filtre', [SessionController::class, 'filtrerSession']);
-
 //Pour les événements (ARCHIVER ET CRUD)
-
 Route::get('evenement/filtre', [EvenementController::class, 'filtrerEvenements']);
-
 //Pour les articles(ARCHIVER ET CRUD)
 Route::get('articles', [ArticleController::class, 'index']);
 Route::get('articles/show/{article}', [ArticleController::class, 'show']);
 Route::get('articles/filtre', [ArticleController::class, 'filtrerArticles']);
-
-
 // Pour les mentors (CRUD ET ARCHIVE)
 Route::get('mentor', [MentorController::class, 'index']);
 Route::get('mentor/nombreMentor', [MentorController::class, 'nombre_mentor']);
@@ -75,10 +69,6 @@ Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
 
     Route::get('mentor/listes_sessions/{mentor}', [MentorController::class, 'listesSessions']);
 });
-// Route::post('session/create', [SessionController::class, 'store']);
-
-
-// Route::post('logout', [MentorController::class, 'logout']);
 
 //Pour les mentorats (CRUD)
 Route::get('mentorats/index', [MentoratController::class, 'index']);
