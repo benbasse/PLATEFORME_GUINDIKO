@@ -211,11 +211,13 @@ class MentorController extends Controller
     {
         try {
             $mentor->update([
-                'est_archive' => 1
+                "est_archive" => 1
             ]);
+            $mentor->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => "Vous avez archivés ce mentor"
+                'status_message' => "Vous avez archivés ce mentor",
+                'mentor'=>$mentor,
             ]);
         } catch (Exception $e) {
             return response()->json($e);

@@ -26,14 +26,14 @@ class Mentor extends Authenticatable
         return $this->hasMany(Evenement_Mentor::class);
     }
 
-    protected $fillabe=[
+    protected $fillabe = [
+        'est_archive',
         'nom',
         'telephone',
         'photo_profil',
         'nombre_annee_experience',
         'nombre_mentores',
         'role',
-        'est_archive',
         'email',
         'password',
         'article_id',
