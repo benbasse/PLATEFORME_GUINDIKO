@@ -16,7 +16,7 @@ class Mentorat extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'users_idx');
+        return $this->belongsToMany(User::class, 'users_id');
     }
     public function sessions()
     {

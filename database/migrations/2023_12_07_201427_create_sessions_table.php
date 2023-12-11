@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mentorats_id');
             $table->string('en_ligne');
+            $table->date('date');
+            $table->time('heure');
             $table->string('theme');
             $table->boolean('est_archive')->default(false);
             $table->string('libelle');

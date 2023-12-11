@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Mentorat;
 use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\RegisterUserRequest;
-
+use App\Models\Mentor;
 
 class UserController extends Controller
 {
@@ -107,6 +108,7 @@ class UserController extends Controller
             $user->update([
                 'is_archived' => 1
             ]);
+            $user->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "Vous avez archivés ce mentor"
@@ -157,4 +159,30 @@ class UserController extends Controller
             ]);
         }
     }
+
+
+    public function selectionneMentor(Request $request, Mentorat $mentorat, Mentor $mentor)
+    {
+        try {
+            // dd($request->mentors_id);
+            $mentorat->users_id = auth()->user()->id;
+            $mentorat->mentors_id = $request->mentors_id;
+            if ($mentorat->save()) 
+            {
+                $mentore = Mentor::find($request->mentors_id);
+                $mentore->nombre_mentores++;
+                $mentore->save();   
+            }
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'vous avez selectionner cette mentor',
+                'mentor' => $mentor,
+                'mentorat'=>$mentorat,
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+    
+
 }

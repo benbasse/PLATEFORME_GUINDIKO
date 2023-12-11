@@ -35,7 +35,7 @@ class ArticleController extends Controller
             $article->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Le post a été archivé',
+                'status_message' => 'L\'article a été archivé',
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -155,7 +155,7 @@ class ArticleController extends Controller
     {
         try {
             $article->delete();
-
+            $article->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'L\'article a été supprimer',

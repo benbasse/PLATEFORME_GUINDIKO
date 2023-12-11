@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests\LoginMentorRequest;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Http\Requests\RegisterMentorRequest;
+use App\Models\Mentorat;
+use App\Models\Session as ModelsSession;
 use OpenApi\Annotations as OA;
 
 
@@ -51,7 +53,6 @@ class MentorController extends Controller
                 'status_message' => 'utilisateur ajouté avec succes',
                 'status_body' => $user
             ]);
-
         } catch (Exception $e) {
             return response()->json([$e]);
         }
@@ -108,10 +109,6 @@ class MentorController extends Controller
                 "status_body" => "deconnexion echouée"
             ]);
         }
-
-
-
-
     }
 
 
@@ -210,14 +207,12 @@ class MentorController extends Controller
     public function archive(Mentor $mentor)
     {
         try {
-            $mentor->update([
-                "est_archive" => 1
-            ]);
+            $mentor->est_archive = true;
             $mentor->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "Vous avez archivés ce mentor",
-                'mentor'=>$mentor,
+                'mentor' => $mentor,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -229,17 +224,12 @@ class MentorController extends Controller
     {
         try {
             $nameFilter = $request->input('search');
-
             $users = Mentor::where('nom', 'like', '%' . $nameFilter . '%')->get();
-
-
-
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Mentors filtrés par nom avec succès',
                 'filtered_users' => $users,
             ]);
-
         } catch (Exception $e) {
             return response()->json([$e]);
         }
@@ -260,7 +250,6 @@ class MentorController extends Controller
                 'status_message' => 'Utilisateur non inscrit'
             ]);
         }
-
     }
 
     public function resetPasswordMentor(Request $request, Mentor $mentor)
@@ -270,7 +259,6 @@ class MentorController extends Controller
         ]);
         $mentor->password = $request->password;
         $mentor->save();
-        //dd($mentor);
         if ($mentor) {
             return response()->json([
                 'status_code' => 200,
@@ -284,6 +272,36 @@ class MentorController extends Controller
                 'user' => $mentor,
             ]);
         }
+    }
 
+
+
+    /*je dois d'abord récupérer le mentorat depuis la table sessions apres essaie 
+    de verifie quel mentor et quel user appartient cette mentorat si je l'ai,
+    je pourrais savoir combien de fois on a pris id du mentor  
+    */
+
+    public function listesSessions(Mentor $mentor, Mentorat $mentorat, ModelsSession $session)
+    {
+
+        // Assurez-vous que $mentorat est bien lié à $mentor
+        $mentorat->mentors_id = $mentor->id;
+        // dd($mentor);
+
+        
+        // Vérifiez s'il y a des sessions liées au mentor
+        $session =ModelsSession::where('mentorats_id', $mentorat->mentors_id)->first();
+        if ($session) {
+            return response()->json([
+                "status_code" => 200,
+                "status_message" => "Voici la liste des sessions pour ce mentor",
+                "sessions" => $session
+            ]);
+        } else {
+            return response()->json([
+                "status_code" => 404,
+                "status_message" => "Aucune session trouvée pour ce mentor"
+            ]);
+        }
     }
 }

@@ -32,7 +32,6 @@ Route::post('session/create', [SessionController::class, 'store']);
 Route::delete('session/{session}', [SessionController::class, 'destroy']);
 Route::get('session/filtre', [SessionController::class, 'filtrerSession']);
 Route::put('session/edit/{session}', [SessionController::class, 'update']);
-Route::put('session/archive/{session}', [SessionController::class, 'archive']);
 Route::get('session/sessionArchive', [SessionController::class, 'sessionArchive']);
 Route::get('session/sessionNonArchive', [SessionController::class, 'sessionNonArchive']);
 
@@ -69,6 +68,7 @@ Route::get('mentor/nombreMentorAtteint', [MentorController::class, 'nombre_mento
 
 
 
+
 //Route d'inscription et de connexion pour les users
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
@@ -96,10 +96,13 @@ Route::post('resetPassword/user/{user}', [UserController::class, 'resetPasswordU
 Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
     /*routes d'acces pour mentors*/
     Route::post('logout', [MentorController::class, 'logout']);
-    Route::post('session/create', [SessionController::class, 'store']);
-    Route::post('mentorat/create', [MentoratController::class, 'store']);
+    Route::put('session/archive/{session}', [SessionController::class, 'archive']);
 
+    // Route::post('mentorat/create', [MentoratController::class, 'store']);
+    
+    Route::get('mentor/listes_sessions/{mentor}', [MentorController::class, 'listesSessions']);
 });
+Route::post('session/create', [SessionController::class, 'store']);
 
 
 // Route::post('logout', [MentorController::class, 'logout']);
@@ -111,9 +114,9 @@ Route::get('mentorats/show/{mentorat}', [MentoratController::class, 'show']);
 /*routes d'acces pour mentorés*/
 Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {
     Route::post('logoutUser', [UserController::class, 'logoutUser']);
+    Route::get('user/selectionne', [UserController::class, 'selectionneMentor']);
 });
 
 /*routes d'acces pour admin*/
 Route::middleware(['auth:sanctum', 'acces:admin'])->group(function () {
 });
-

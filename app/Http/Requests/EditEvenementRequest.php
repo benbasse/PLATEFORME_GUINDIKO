@@ -28,8 +28,8 @@ class EditEvenementRequest extends FormRequest
             "description" => "required",
             "heure_evenement" => "required",
             "date_evenement" => "required|date",
-            "lieu" => "required"
-
+            "lieu" => "required",
+            // "image"=>"sometimes|image",
         ];
     }
 

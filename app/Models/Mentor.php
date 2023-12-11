@@ -11,7 +11,7 @@ class Mentor extends Authenticatable
 {
     use HasFactory, HasApiTokens;
 
-    public function Session()
+    public function mentorats()
     {
         return $this->hasMany(Mentorat::class);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSessionRequest;
 use App\Http\Requests\EditSessionRequest;
+use App\Models\Mentor;
 use App\Models\Session;
 use Exception;
 use Illuminate\Http\Request;
@@ -31,13 +32,12 @@ class SessionController extends Controller
     public function archive(Session $session)
     {
         try {
-            $session->update([
-                "est_archive" => 1,
-            ]);
+            
+            $session->est_archive = true;
             $session->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'Vous avez archivés cette sessions',
+                'status_message' => 'Vous avez archivé cette session',
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -48,11 +48,16 @@ class SessionController extends Controller
     public function sessionArchive(Session $session)
     {
         try {
-            if ($session->est_archive == 0) {
+            if ($session->est_archive == 1) {
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Voici la liste des sessions archivés',
                     'session' => Session::where('est_archive', 1)->get(),
+                ]);
+            } else {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => "il n'y a pas de session archivés pour le moment",
                 ]);
             }
         } catch (Exception $e) {
@@ -111,8 +116,10 @@ class SessionController extends Controller
         try {
             $session->mentorats_id = $request->mentorats_id;
             $session->libelle = $request->libelle;
-            $session->en_ligne= $request->en_ligne;
+            $session->en_ligne = $request->en_ligne;
             $session->theme = $request->theme;
+            $session->date = $request->date;
+            $session->heure = $request->heure;
             $session->save();
             return response()->json([
                 'status_code' => 200,
@@ -132,6 +139,9 @@ class SessionController extends Controller
             $session->libelle = $request->libelle;
             $session->en_ligne = $request->en_ligne;
             $session->theme = $request->theme;
+            $session->date = $request->date;
+            $session->heure = $request->heure;
+            // dd($session);
             $session->save();
             return response()->json([
                 'status_code' => 200,
@@ -148,6 +158,7 @@ class SessionController extends Controller
     {
         try {
             $session->delete();
+            $session->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Vous avez supprimer cette session',
@@ -156,5 +167,17 @@ class SessionController extends Controller
         } catch (Exception $e) {
             return response()->json($e);
         }
+    }
+
+    public function totalSessionMentor(Session $session, Mentor $mentor)
+    {
+        $mentorSession = Mentor::find($mentor->id);
+        $sessionCount = $mentorSession->session()->count();
+
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'la session est enregistré',
+            'nombre_de_session/mentor' => $sessionCount
+        ]);
     }
 }

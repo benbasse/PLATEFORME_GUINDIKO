@@ -29,6 +29,8 @@ class EditSessionRequest extends FormRequest
             "theme" => "required",
             "libelle" => "required",
             "mentorats_id" => "required",
+            "date" => "required|date",
+            "heure" => "required"
         ];
     }
 
@@ -48,7 +50,11 @@ class EditSessionRequest extends FormRequest
             "mentorats_id.required" => "Le menroats_id ne peut pas être null",
             "theme.required" => "Le theme ne peut pas être null",
             "en_ligne.required" => "le champ en ligne ne peut pas être null",
-            "libelle.required" => "Le libelle ne peut pas être null"
+            "libelle.required" => "Le libelle ne peut pas être null",
+            "date.required" => "La date est requise",
+            "date.date"=> "le format de date est incorrect",
+            "heure.required"=>"l'heure est requis",
+            "heure.time"=>" le format de l'heure est incorrect"
         ];
     }
 }

@@ -161,7 +161,7 @@ class EvenementController extends Controller
     {
         try {
             $evenement->delete();
-
+            $evenement->save();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'L\'événement a été supprimer',

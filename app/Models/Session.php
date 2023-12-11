@@ -9,9 +9,9 @@ class Session extends Model
 {
     use HasFactory;
 
-    public function Mentorat()
+    public function mentorat()
     {
-        return $this->belongsTo(Mentor::class);
+        return $this->belongsTo(Mentorat::class);
     }
 
     protected $fillabe = [
@@ -19,7 +19,9 @@ class Session extends Model
         'lieu',
         'en_ligne',
         'theme',
-        'est_archive',
         'libelle',
+        'est_archive',
+        'date',
+        'heure'
     ];
 }
